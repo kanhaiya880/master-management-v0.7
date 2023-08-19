@@ -1,0 +1,50 @@
+{% extends "enroll/base.html" %}
+{% block content %}
+
+<div class="container pt-4">
+  <div class="row">
+    {% if not user.superuser %}
+      {% if messages %}
+      <div class="col-md-8 mt-3 mx-auto">
+        {% for message in messages %}
+          <div class="alert alert-{{ message.tags }} alert-dismissible fade show">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        {% endfor %}
+      </div>
+      {% endif %}
+    {% endif %}
+
+    
+  </div>
+ <div class="col-md-12">
+            <form action="{% url 'dash' %}" class="border shadow-lg px-5 py-2 mb-2 alert-primary rounded text-center" method="POST">
+              <div class="fw-semibold">
+                <strong>{{ page_name }}</strong>
+              </div>
+            </form>
+          </div>
+  <div class="row">
+  
+    <div class="col-md-12 col-sm-12 px-auto mx-auto">
+      <form action="" method="POST" class="border p-4 shadow-lg p-3 mb-5 bg-light rounded">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        {% if user.is_superuser %}
+          <input type="submit" class="btn btn-success" name="confirm" value="{{value}}">
+          {% if show_generate_receipt %}
+         <a href="{% url 'generate_receipt' pk=profile.pk %}" class="btn btn-primary">Generate Receipt</a>
+          {% endif %}
+
+        {% else %}
+          <input type="submit" class="btn btn-success" value="Update">
+          <a href="{% url 'dash' %}" class="btn btn-warning">Back</a>
+        {% endif %}
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}

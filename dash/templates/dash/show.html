@@ -1,0 +1,76 @@
+{% extends "enroll/base.html" %}
+{% load my_filters %}
+
+{% block content %}
+
+<section>
+  <div class="con">
+    <div class="row mt-5 mb-5 me-sm-1 ps-sm-3 rounded">
+        <div class="col-12">
+            <form action="{% url 'dash' %}" class="border shadow-lg px-5 py-2 mb-2 alert-primary rounded text-center" method="POST">
+              <div class="fw-semibold">
+                <strong>{{ page_name }}</strong>
+              </div>
+            </form>
+          </div>
+      
+          
+      <div class="col-12 rounded">
+        {% csrf_token %}
+        {% if stu %}
+        <div class="table-responsive">
+          <table class="table table-bordered border-end table-hover table-light shadow-lg bg-white">
+            <thead>
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Status</th>
+                <th scope="col">Salesman</th>
+                <th scope="col">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for st in stu %}
+              <tr>
+                <th scope="row">{{ st.id }}</th>
+                <td>{{ st.name }}</td>
+                <td>{{ st.email }}</td>
+                <td>{{ st.ans_choices }}</td>
+                <td>{{ st.user }}</td>
+
+                <td class="">
+                  {% if not user.is_superuser %}
+                  <a href="{% url 'updatedata' st.id %}" class="btn btn-warning my-sm-1 btn-sm mb-2">Edit</a>
+                  <form action="{% url 'delete' st.id %}" method="POST" class="d-inline">
+                    {% csrf_token %}
+                    <input type="submit" class="btn btn-danger btn-sm" value="Delete">
+                  </form>
+                  {% else %}
+                  {% if st|get_class_name == 'UserProfile' %}
+                  <a href="{% url 'admin_update' st.id %}" class="btn btn-success my-sm-1 btn-sm mb-2">Show</a>
+                  {% elif st|get_class_name == 'ConfirmedUserProfile' %}
+                  <a href="{% url 'confirm' st.id %}" class="btn btn-warning my-sm-1 btn-sm mb-2">Edit</a>
+                  <form action="{% url 'confirm_delete' st.id %}" method="POST" class="d-inline">
+                    {% csrf_token %}
+                    <input type="submit" class="btn btn-danger btn-sm" value="Delete">
+                  </form>
+                  {% endif %}
+                  {% endif %}
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        {% else %}
+        <div class="alert alert-primary d-flex align-items-center">
+          <i class="fas fa-sad-tear fa-2x"></i> &nbsp; &nbsp; No Record Found
+        </div>
+        {% endif %}
+
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock content %}

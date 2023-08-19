@@ -1,0 +1,63 @@
+<section>
+  <div class="c">
+    <div class="sidebar bg-light rounded mx-auto shadow-lg" style="width: 300px; height: 100%; position: fixed; left: 0;">
+      <div class="card-header mx-auto alert-primary border-bottom">
+        <div class="fw-semibold d-flex align-items-center">
+          <i class="fa-solid fa-bars fa-2x text-primary"></i>&nbsp;&nbsp;&nbsp;VI MARK TECH DASHBOARD
+        </div>
+      </div>
+      <div class="pt-5">
+        <div class="card mx-auto" style="width: 17rem;">
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+              <a href="{% url 'dash' %}" class="btn btn-sm btn-primary w-100 btn-hover">
+                <i class="fas fa-tachometer-alt"></i>&nbsp;Dashboard
+              </a>
+            </li>
+            {% if user.is_superuser %}
+            <li class="list-group-item">
+              <a href="{% url 'follow_up' %}" class="btn btn-sm btn-primary w-100 btn-hover">
+                <i class="fas fa-phone"></i>&nbsp;Follow up
+              </a>
+            </li>
+            <li class="list-group-item">
+              <a href="{% url 'all_admin_obj' %}" class="btn btn-sm btn-primary w-100 btn-hover">
+                <i class="fas fa-database"></i>&nbsp;Requests
+              </a>
+            </li>
+            <li class="list-group-item">
+              <a href="{% url 'confirm_obj' %}" class="btn btn-sm btn-primary w-100 btn-hover">
+                <i class="fas fa-check-circle"></i>&nbsp;Confirmed
+              </a>
+            </li>
+            {% endif %}
+            <li class="list-group-item">
+              <a href="{% url 'add_show' %}" class="btn btn-sm btn-primary w-100 btn-hover">
+                <i class="fas fa-plus-circle"></i>&nbsp; Add New
+              </a>
+            </li>
+            <li class="list-group-item">
+              <a href="{% url 'show' %}" class="btn btn-sm btn-primary w-100 btn-hover">
+                <i class="fas fa-eye"></i>&nbsp; MY Records
+              </a>
+            </li>
+            {% if not user.is_superuser %}
+              <li class="list-group-item">
+              <a href="{% url 'user_follow_up' %}" class="btn btn-sm btn-primary w-100 btn-hover">
+                <i class="fas fa-check-circle"></i>&nbsp;Follow up
+              </a>
+            </li>
+            <li class="list-group-item">
+              <a href="{% url 'confirm_obj' %}" class="btn btn-sm btn-primary w-100 btn-hover">
+                <i class="fas fa-check-circle"></i>&nbsp;Confirmed
+              </a>
+            </li>
+           
+            {% endif %}
+            
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

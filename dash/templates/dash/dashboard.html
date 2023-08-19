@@ -1,0 +1,80 @@
+{% extends 'enroll/base.html' %}
+{% load static %}
+
+{% block content %}
+<section>
+  <div class="container">
+    <div class="row py-5">
+      <div class="col-md-12">
+        <form action="{% url 'dash' %}" class="border shadow-lg px-5 py-2 mb-2 alert-primary rounded" method="POST">
+          <div class="fw-semibold">Welcome {{ name }}</div>
+        </form>
+      </div>
+      <div class="col-md-4">
+        <div class="card p-5 rounded shadow-lg ">
+          <div class="fw-semibold">
+            <i class="fas fa-tachometer-alt fa-lg text-primary"></i> &nbsp; Waiting Requests: {{ num_data }}
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card p-5 rounded shadow-lg">
+          <div class="fw-semibold">
+            <i class="fas fa-tachometer-alt fa-lg text-primary"></i> &nbsp; Confirmed Requests: {{ con_data }}
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card p-5 rounded shadow-lg">
+          <div class="fw-semibold">
+            <i class="fas fa-tachometer-alt fa-lg text-primary"></i> &nbsp; Follow UP : {{f_data}}
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12 mt-md-5">
+        <div class="card rounded shadow-lg">
+          <div class="card-body">
+            <div class="fw-semibold card-title ">Data Count Progress Bar</div>
+            <div id="graph-placeholder" style="width: 100%; height: 300px;">
+            
+              <div class="row">
+                <div class="card py-2 my-2 rounded border">
+                  <div class="fw-semibold">
+                    <i class="fas fa-tachometer-alt fa-lg text-primary"></i> &nbsp; Waiting Requests: {{ num_data }}
+                  </div>
+                  <div class="progress mt-3">
+                    <div class="progress-bar" role="progressbar" style="width: {{ num_data }}%" aria-valuenow="{{ num_data }}" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="card py-2 my-2 rounded border">
+                  <div class="fw-semibold">
+                    <i class="fas fa-tachometer-alt fa-lg text-primary"></i> &nbsp; Confirmed Requests: {{ con_data }}
+                  </div>
+                  <div class="progress mt-3">
+                    <div class="progress-bar" role="progressbar" style="width: {{ con_data }}%" aria-valuenow="{{ con_data }}" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="card py-2 my-2 rounded border">
+                  <div class="fw-semibold">
+                    <i class="fas fa-tachometer-alt fa-lg text-primary"></i> &nbsp; Follow up: {{f_data}}
+                  </div>
+                  <div class="progress mt-3">
+                    <div class="progress-bar" role="progressbar" style="width: {{f_data}}%" aria-valuenow="0" aria-valuemin="{{f_data}}" aria-valuemax="100"></div>
+                  </div>
+                </div>
+              </div>
+            
+            
+            
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock content %}

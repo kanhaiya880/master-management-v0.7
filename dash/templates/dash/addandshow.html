@@ -1,0 +1,36 @@
+{% extends "enroll/base.html" %}
+{% block content %}
+
+<div class="container pt-4">
+    <div class="row">
+        <div class="col-md-12">
+            <form action="{% url 'dash' %}" class="border shadow-lg px-5 py-2 mb-2 alert-primary rounded text-center" method="POST" novalidate>
+                <div class="fw-semibold">
+                    <strong>{{ page_name }}</strong>
+                </div>
+            </form>
+        </div>
+
+        <div class="col-md-12 col-sm-12 px-auto mx-auto">
+            <form action="{% url 'add_show' %}" class="border p-4 shadow-lg p-3 mb-5 bg-light rounded" method="POST" novalidate>
+                {% csrf_token %}
+                    {% if form.errors %}
+                <div class="alert alert-danger mt-3">
+                    <strong>Error:</strong>
+                    <ul>
+                        {% for field in form %}
+                            {% if field.errors %}
+                                <li style="color: red;">{{ field.label }} is required.</li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+
+                {{ form.as_p }}
+                <input type="submit" class="btn btn-success">
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}
